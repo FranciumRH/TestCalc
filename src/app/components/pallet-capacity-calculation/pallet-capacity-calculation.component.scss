@@ -1,0 +1,140 @@
+/* Общие стили */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+
+.warehouse-container {
+    width: 100%;
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 1.5rem;
+}
+
+/* Переключатель для действия */
+.action-selector {
+    margin-bottom: 20px;
+}
+
+.action-selector label {
+    margin: 0 10px;
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Контейнер для кнопок и ввода */
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+input {
+    width: 80px;
+    padding: 8px;
+    font-size: 1rem;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin: 0 10px;
+}
+
+button.btn {
+    padding: 10px 15px;
+    margin: 0 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+button.btn:hover {
+    background-color: #0056b3;
+}
+
+button.btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Индикатор заполненности склада с числом в центре */
+.occupancy-indicator {
+    width: 100%;
+    height: 30px;
+    background: #e0e0e0;
+    border-radius: 15px;
+    position: relative;
+    margin-top: 20px;
+}
+
+.occupancy-bar-background {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: 15px;
+    background-color: #e0e0e0;
+}
+
+.occupancy-bar {
+    height: 100%;
+    border-radius: 15px;
+    transition: width 0.5s ease-in-out;
+}
+
+/* Плавный градиент от зеленого к желтому, затем оранжевому и красному */
+.occupancy-bar.green {
+    background: linear-gradient(to right, #76c7c0, #8bc34a, #ffeb3b);
+    /* зеленый → желтый */
+}
+
+.occupancy-bar.yellow {
+    background: linear-gradient(to right, #8bc34a, #ffeb3b, #ff9800);
+    /* желтый → оранжевый */
+}
+
+.occupancy-bar.orange {
+    background: linear-gradient(to right, #ffeb3b, #ff9800, #ff5722);
+    /* оранжевый → красный */
+}
+
+.occupancy-bar.red {
+    background: linear-gradient(to right, #ff9800, #ff5722, #f44336);
+    /* оранжевый → красный */
+}
+
+.occupancy-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2rem;
+    color: white;
+    font-weight: bold;
+    z-index: 2;
+}
+
+/* Статус заполненности склада */
+.occupancy-status {
+    padding: 15px;
+    border-radius: 8px;
+    color: #333;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 20px;
+}
