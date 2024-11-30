@@ -15,6 +15,14 @@ export class ExcelImportComponent {
 
   constructor(private http: HttpClient) { }
 
+  clearServerData(): Promise<void> {
+  return this.http
+    .post('http://localhost:3000/clear-data', {}, { headers: { 'Content-Type': 'application/json' } })
+    .toPromise()
+    .then(() => console.log('Серверные данные успешно очищены.'))
+    .catch((error) => console.error('Ошибка при очистке серверных данных:', error));
+}
+
   onFileChange(event: any): void {
     const file = event.target.files[0];
     if (file) {
@@ -29,14 +37,19 @@ export class ExcelImportComponent {
     const workbook = XLSX.read(arrayBuffer, { type: 'array' });
     const sheet = workbook.Sheets[workbook.SheetNames[0]];
     const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-
+  
     const { polikarpovaData, pollyData, totalData } = this.extractGroupedData(jsonData);
-
+  
+    // Очищаем серверные данные перед загрузкой новой таблицы
+    await this.clearServerData();
+  
     const currentData = await this.fetchDataFromServer();
     const updatedData = this.updateAllData(currentData, polikarpovaData, pollyData);
-
+  
+    // Отправляем обновленные данные на сервер
     this.sendDataToServer(updatedData.polikarpovaData, updatedData.pollyData, updatedData.totalData);
-    
+  
+    // Вызываем эмиттер для обновления totalData
     this.totalDataUpdated.emit(updatedData.totalData);
   }
 

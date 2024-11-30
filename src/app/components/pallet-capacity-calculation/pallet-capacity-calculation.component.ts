@@ -49,11 +49,11 @@ export class PalletCapacityCalculationComponent implements OnInit {
     this.http.get<any>('http://localhost:3000/get-total').subscribe({
       next: (response) => {
         console.log('Ответ от сервера:', response); // Логируем полученные данные
-        const totalData = response.totalData;
-        if (Array.isArray(totalData)) {
-          this.calculatePalletsFromItems(totalData);
+        if (Array.isArray(response)) {
+          console.log('Успешно получены данные:', response);
+          this.calculatePalletsFromItems(response); // Используем весь ответ как массив
         } else {
-          console.error('Ошибка: данные не в правильном формате');
+          console.error('Ошибка: ожидается массив объектов, получено:', response);
         }
       },
       error: (error) => {
@@ -61,7 +61,6 @@ export class PalletCapacityCalculationComponent implements OnInit {
       }
     });
   }
-
   // Запрос для получения данных о паллетах
   fetchPalletsData(): void {
     this.http.get<any>('http://localhost:3000/get-pallets').subscribe({
