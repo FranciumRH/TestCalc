@@ -1,31 +1,14 @@
 <div class="warehouse-container">
-    <h2>Warehouse Occupancy</h2>
+  <h2>Warehouse Occupancy</h2>
 
-    <!-- Переключатель для выбора действия (плюс или минус) -->
-    <div class="action-selector">
-        <label>
-            <input type="radio" name="action" [(ngModel)]="action" value="add">
-            Add Pallets
-        </label>
-        <label>
-            <input type="radio" name="action" [(ngModel)]="action" value="remove">
-            Remove Pallets
-        </label>
+  <!-- Индикатор заполненности склада с числом в центре -->
+  <div class="occupancy-indicator">
+    <div class="occupancy-bar-background">
+      <div class="occupancy-bar" 
+           [style.width.%]="occupancyPercentage"
+           [style.background]="occupancyColor">
+      </div>
+      <span class="occupancy-text">{{ occupiedPallets }} / {{ totalPallets }}</span>
     </div>
-
-    <div class="controls">
-        <button class="btn" (click)="changePallets()">Submit</button>
-        <input type="number" id="palletInput" [(ngModel)]="inputPallets" min="0"
-            [max]="action === 'add' ? totalPallets - occupiedPallets : occupiedPallets" placeholder="Enter amount">
-    </div>
-
-    <!-- Индикатор заполненности склада с числом в центре -->
-    <div class="occupancy-indicator">
-        <div class="occupancy-bar-background">
-            <div class="occupancy-bar" [style.width.%]="(occupiedPallets / totalPallets) * 100"
-                [style.background]="occupancyColor">
-            </div>
-            <span class="occupancy-text">{{ occupiedPallets }} / {{ totalPallets }}</span>
-        </div>
-    </div>
+  </div>
 </div>
