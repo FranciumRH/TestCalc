@@ -1,12 +1,14 @@
 <div class="warehouse-container">
-  <h2>Warehouse Occupancy</h2>
+  <!-- Индикатор заполненности склада -->
+  <div class="occupancy-indicator" 
+       role="progressbar" 
+       [attr.aria-valuenow]="occupancyPercentage" 
+       [attr.aria-valuemin]="0" 
+       [attr.aria-valuemax]="100">
 
-  <!-- Индикатор заполненности склада с числом в центре -->
-  <div class="occupancy-indicator">
     <div class="occupancy-bar-background">
       <div class="occupancy-bar" 
-           [style.width.%]="occupancyPercentage"
-           [style.background]="occupancyColor">
+           [ngStyle]="{'width.%': occupancyPercentage, 'background': occupancyColor}">
       </div>
       <span class="occupancy-text">{{ occupiedPallets }} / {{ totalPallets }}</span>
     </div>
