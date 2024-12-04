@@ -1,8 +1,13 @@
 <div class="file-upload-container">
+  <label class="file-upload-label">
     <input 
       type="file" 
       (change)="onFileChange($event)" 
       accept=".xlsx, .xls" 
-      aria-label="Upload Excel file" />
-  </div>
+      aria-label="Upload Excel file" 
+      hidden
+    />
+    <span>📂 Upload Excel File</span>
+  </label>
   
+</div>

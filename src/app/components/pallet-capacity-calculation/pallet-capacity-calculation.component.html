@@ -14,3 +14,26 @@
     </div>
   </div>
 </div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Позиция</th>
+      <th>Общее количество</th>
+      <th>Коробки</th>
+      <th>Остаток штучный</th>
+      <th>Паллеты</th>
+      <th>Остаток коробок</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of detailedResults">
+      <td>{{ row.itemName }}</td>
+      <td>{{ row.totalUnits }}</td>
+      <td>{{ row.fullBoxes }}</td>
+      <td>{{ row.remainingUnits }}</td>
+      <td>{{ row.fullPallets }}</td>
+      <td>{{ row.remainingBoxes }}</td>
+    </tr>
+  </tbody>
+</table>

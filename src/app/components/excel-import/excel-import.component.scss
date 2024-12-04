@@ -1,0 +1,36 @@
+.file-upload-container {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.file-upload-label {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.file-upload-label:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.file-upload-label span {
+    pointer-events: none; /* Отключает выделение текста */
+}
+
+input[type="file"] {
+    display: none; /* Скрываем input */
+}
+
+.file-name {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333;
+    font-style: italic;
+}
