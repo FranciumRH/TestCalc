@@ -1,1 +1,147 @@
-/* You can add global styles to this file, and also import other style files */
+/* styles.scss */
+@import 'ngx-toastr/toastr';
+
+/* Общий фон и шрифт для приложения */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 0;
+}
+
+/* Основной контейнер приложения */
+.warehouse-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Заголовки */
+h2,
+h3 {
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+/* Общие кнопки */
+button.btn {
+  padding: 10px 15px;
+  margin: 0 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+button.btn:hover {
+  background-color: #0056b3;
+}
+
+button.btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Общие стили для уведомлений */
+.toast-container {
+  font-family: 'Arial', sans-serif;
+  font-size: 1rem;
+  line-height: 1.4;
+  color: #333;
+}
+
+/* Основной стиль уведомлений */
+.toast {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  border-left: 6px solid transparent;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Цвета по типам уведомлений */
+.toast-success {
+  border-left-color: #76c7c0;
+  /* Зеленый */
+  background-color: #f0fdfb;
+  /* Светлый фон */
+}
+
+.toast-error {
+  border-left-color: #f44336;
+  /* Красный */
+  background-color: #fff0f0;
+  /* Светлый фон */
+}
+
+.toast-warning {
+  border-left-color: #ff9800;
+  /* Оранжевый */
+  background-color: #fff7e6;
+  /* Светлый фон */
+}
+
+.toast-info {
+  border-left-color: #007bff;
+  /* Синий */
+  background-color: #f0f7ff;
+  /* Светлый фон */
+}
+
+/* Заголовок уведомлений */
+.toast-title {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+/* Сообщение */
+.toast-message {
+  color: #555;
+  flex: 1;
+}
+
+/* Кнопка закрытия */
+.toast-close-button {
+  color: #555;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+}
+
+.toast-close-button:hover {
+  opacity: 1;
+}
+
+/* Анимации появления и исчезновения */
+.ng-animating-enter {
+  transform: translateY(-10px);
+  opacity: 0;
+}
+
+.ng-animating-enter-active {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.ng-animating-leave {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.ng-animating-leave-active {
+  transform: translateY(-10px);
+  opacity: 0;
+}

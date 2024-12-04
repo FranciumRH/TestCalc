@@ -1,10 +1,10 @@
 <div class="warehouse-container">
-  <!-- Компонент для импорта Excel -->
-  <app-excel-import (totalDataUpdated)="onTotalDataUpdated($event)"></app-excel-import>
-
   <!-- Компонент для расчета паллетов -->
   <app-pallet-capacity-calculation 
     #palletCapacityComponent 
     [totalData]="totalData || []">
   </app-pallet-capacity-calculation>
+
+  <!-- Компонент для импорта Excel -->
+  <app-excel-import (totalDataUpdated)="onTotalDataUpdated($event)"></app-excel-import>
 </div>
