@@ -1,0 +1,88 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    color: #333;
+}
+
+th {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+td {
+    background-color: #ffffff;
+}
+
+td:hover {
+    background-color: #e1e1e1;  /* Цвет ячейки при наведении */
+}
+
+/* Стили для названия позиции */
+th.item-name, td.item-name {
+    max-width: 300px; /* Максимальная ширина для названия */
+    white-space: nowrap; /* Отключаем перенос текста */
+    overflow: hidden;    /* Обрезаем текст, если он не помещается */
+    text-overflow: ellipsis; /* Добавляем многоточие для длинного текста */
+    text-align: left; /* Выравнивание по левому краю */
+}
+
+/* Стиль для ячеек в колонке "Позиция" */
+td.item-name {
+    font-weight: normal;
+    font-size: 0.9rem; /* Меньший размер шрифта для названия */
+    line-height: 1.2;
+    padding-right: 15px; /* Немного отступа справа, чтобы избежать слишком плотного прилегания текста */
+}
+
+/* Стили для остальных колонок */
+td {
+    font-size: 1rem;
+    font-weight: normal;
+    text-align: center;
+}
+
+/* Стили для заголовков */
+th {
+    font-size: 1.1rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Стиль для строк с четным индексом */
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Стиль для строк при наведении */
+tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+/* Убираем подчеркивание на ссылках внутри таблицы */
+a {
+    text-decoration: none;
+}
+
+/* Дополнительный стиль для ячеек, если нужно выделить */
+td:hover {
+    background-color: #e1e1e1;
+}

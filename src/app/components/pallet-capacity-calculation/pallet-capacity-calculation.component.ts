@@ -23,41 +23,45 @@ export interface PalletMetrics {
 
 
 export class PalletCapacityCalculationComponent implements OnInit, OnChanges, OnDestroy {
-  @Input() totalData: TotalData[] = [];
-  totalPallets = 700; 
-  occupiedPallets = 0;
-  occupancyPercentage = 0;
-  occupancyColor = 'green';
+  @Input() totalData: TotalData[] = [];  // Данные для расчета паллетов, передаваемые родительским компонентом
+  totalPallets = 700;  // Общее количество паллетов
+  occupiedPallets = 0;  // Занятые паллеты
+  occupancyPercentage = 0;  // Процент заполняемости
+  occupancyColor = 'green';  // Цвет для отображения заполняемости
 
-  detailedResults: Array<any> = [];  // Для хранения подробных данных
+  detailedResults: Array<any> = [];  // Для хранения подробных данных по каждой позиции
 
-  private updateInterval: ReturnType<typeof setInterval> | null = null;
+  private updateInterval: ReturnType<typeof setInterval> | null = null;  // Интервал обновления данных
 
   constructor(
-    private serverDataService: ServerDataService,
-    private palletCalculationService: PalletCalculationService
+    private serverDataService: ServerDataService,  // Сервис для получения данных с сервера
+    private palletCalculationService: PalletCalculationService  // Сервис для расчета паллетов
   ) {}
 
   ngOnInit(): void {
+    // Запускаем обновление данных при инициализации компонента
     this.updatePalletMetrics();
-    this.startAutoUpdate();
   }
 
   ngOnChanges(): void {
+    // Вызываем расчет при изменении входных данных
     if (this.totalData && this.totalData.length > 0) {
       this.calculateMetrics(this.totalData);
     }
   }
 
   ngOnDestroy(): void {
+    // Очищаем таймеры при уничтожении компонента
     this.clearAutoUpdate();
   }
 
   private async updatePalletMetrics(): Promise<void> {
     try {
+      // Получаем актуальные данные с сервера
       const totalData = await this.serverDataService.fetchData('get-total');
 
       if (Array.isArray(totalData) && totalData.length > 0) {
+        // Если данные есть, передаем их для расчета
         this.calculateMetrics(totalData);
       } else {
         console.warn('Нет данных для расчета паллетов.');
@@ -74,12 +78,14 @@ export class PalletCapacityCalculationComponent implements OnInit, OnChanges, On
     }
 
     try {
-      // Получаем подробные результаты с помощью нового метода
+      // Получаем подробные результаты с помощью сервиса
       this.detailedResults = this.palletCalculationService.getDetailedResults(items);
 
-      // Считаем общие паллеты
+      // Считаем общее количество паллетов, которые требуются для хранения
       const totalPalletsNeeded = this.detailedResults.reduce((acc, item) => acc + item.palletsForItem, 0);
       this.occupiedPallets = totalPalletsNeeded;
+
+      // Обновляем заполняемость паллетов
       this.updateOccupancy();
     } catch (error) {
       console.error('Ошибка при расчете метрик паллетов:', error);
@@ -87,7 +93,10 @@ export class PalletCapacityCalculationComponent implements OnInit, OnChanges, On
   }
 
   private updateOccupancy(): void {
+    // Рассчитываем процент заполняемости
     this.occupancyPercentage = Math.round((this.occupiedPallets / this.totalPallets) * 100);
+    
+    // Изменяем цвет в зависимости от заполняемости
     this.occupancyColor =
       this.occupancyPercentage < 50
         ? 'green'
@@ -97,14 +106,17 @@ export class PalletCapacityCalculationComponent implements OnInit, OnChanges, On
   }
 
   private startAutoUpdate(): void {
-    this.clearAutoUpdate(); // Убедимся, что не создаем дублирующие таймеры
+    // Очищаем старые интервалы перед созданием нового
+    this.clearAutoUpdate();
 
+    // Устанавливаем таймер на обновление данных каждую минуту (180000ms)
     this.updateInterval = setInterval(() => {
       this.updatePalletMetrics();
     }, 180000); // Обновление каждые 3 минуты
   }
 
   private clearAutoUpdate(): void {
+    // Очищаем интервал обновления
     if (this.updateInterval) {
       clearInterval(this.updateInterval);
       this.updateInterval = null;

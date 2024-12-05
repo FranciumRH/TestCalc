@@ -17,7 +17,7 @@ export interface PalletMetrics {
 }
 
 export interface DetailedResult {
-  name: string;        // Название товара
+  itemName: string;        // Название товара
   boxes: number;       // Количество единиц в одной коробке
   pallets: number;     // Количество коробок в одном паллете
   totalUnits: number;  // Общее количество единиц товара
