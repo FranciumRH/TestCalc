@@ -1,23 +1,19 @@
-<table *ngIf="detailedResults.length > 0" class="pallet-table">
+<table *ngIf="detailedResults.length > 0" class="pallet-table" (click)="handleTableClick($event)"> 
   <thead>
     <tr>
       <th>Наименование</th>
       <th>Общее количество</th>
-      <th>Полные коробки</th>
       <th>Остаток единиц</th>
       <th>Полные паллеты</th>
-      <th>Остаточные коробки</th>
-      <th>Необходимое количество паллет</th>
+      <th>Паллет всего:</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let result of detailedResults">
-      <td>{{ result.itemName }}</td> <!-- Имя товара -->
+      <td>{{ result.itemName }}</td>
       <td>{{ result.totalUnits }}</td>
-      <td>{{ result.fullBoxes }}</td>
       <td>{{ result.remainingUnits }}</td>
       <td>{{ result.fullPallets }}</td>
-      <td>{{ result.remainingBoxes }}</td>
       <td>{{ result.palletsForItem }}</td>
     </tr>
   </tbody>

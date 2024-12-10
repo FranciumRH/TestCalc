@@ -42,13 +42,21 @@ export class PalletCalculationService {
     const { boxes, pallets } = palletFormat;
     const totalUnits = item.quantity;
 
-    const fullBoxes = this.calculateFullBoxes(totalUnits, boxes);
-    const remainingUnits = this.calculateRemainingUnits(totalUnits, boxes);
-    const fullPallets = this.calculateFullPallets(fullBoxes, pallets);
-    const remainingBoxes = this.calculateRemainingBoxes(fullBoxes, pallets);
-    const palletsForItem = this.calculatePalletsForItem(fullPallets, remainingBoxes, remainingUnits);
+    // Шаг 1: Переводим в коробки
+    const fullBoxes = Math.floor(totalUnits / boxes); // Полные коробки
+    const remainingUnitsAfterBoxes = totalUnits % boxes; // Остаточные штуки после коробок
 
-    return this.createDetailedResult(item, boxes, pallets, totalUnits, fullBoxes, remainingUnits, fullPallets, remainingBoxes, palletsForItem);
+    // Шаг 2: Переводим в паллеты
+    const fullPallets = Math.floor(fullBoxes / pallets); // Полные паллеты
+    const remainingBoxes = fullBoxes % pallets; // Остаточные коробки после паллет
+
+    // Шаг 3: Преобразуем остаточные коробки и остаточные единицы в поштучное количество
+    const remainingUnits = remainingBoxes * boxes + remainingUnitsAfterBoxes; // Оставшиеся единицы в штуках
+
+    // Шаг 4: Если есть остаточные единицы, увеличиваем количество паллет на 1
+    const palletsForItem = fullPallets + (remainingUnits > 0 ? 1 : 0); // Добавляем паллет для остатков
+
+    return this.createDetailedResult(item, totalUnits, fullPallets, remainingUnits, remainingBoxes, palletsForItem);
   }
 
   /**
@@ -80,26 +88,23 @@ export class PalletCalculationService {
   /**
    * Формирует детализированный результат для одного товара.
    * @param item - объект с данными о товаре.
-   * @param boxes, pallets, totalUnits - расчетные данные.
+   * @param totalUnits, fullPallets, remainingUnits, palletsForItem - расчетные данные.
    * @returns Объект с детализированным результатом.
    */
   private createDetailedResult(
     item: TotalData,
-    boxes: number,
-    pallets: number,
     totalUnits: number,
-    fullBoxes: number,
-    remainingUnits: number,
     fullPallets: number,
+    remainingUnits: number,
     remainingBoxes: number,
     palletsForItem: number
   ): DetailedResult {
     return {
       itemName: item.name,
-      boxes,
-      pallets,
+      boxes: item.quantity,  // Сохраняем общее количество единиц
+      pallets: 0,            // Количество коробок на паллете (в данном случае не используется)
       totalUnits,
-      fullBoxes,
+      fullBoxes: 0,          // Количество полных коробок (не используется)
       remainingUnits,
       fullPallets,
       remainingBoxes,
@@ -118,32 +123,9 @@ export class PalletCalculationService {
     return detailedResults.map((result) => ({
       itemName: result.itemName,
       totalUnits: result.totalUnits,
-      fullBoxes: result.fullBoxes,
-      remainingUnits: result.remainingUnits,
       fullPallets: result.fullPallets,
-      remainingBoxes: result.remainingBoxes,
+      remainingUnits: result.remainingUnits,
       palletsForItem: result.palletsForItem,
     }));
-  }
-
-  // Методы для вычислений, такие как:
-  private calculateFullBoxes(totalUnits: number, boxes: number): number {
-    return Math.floor(totalUnits / boxes);
-  }
-
-  private calculateRemainingUnits(totalUnits: number, boxes: number): number {
-    return totalUnits % boxes;
-  }
-
-  private calculateFullPallets(fullBoxes: number, pallets: number): number {
-    return Math.floor(fullBoxes / pallets);
-  }
-
-  private calculateRemainingBoxes(fullBoxes: number, pallets: number): number {
-    return fullBoxes % pallets;
-  }
-
-  private calculatePalletsForItem(fullPallets: number, remainingBoxes: number, remainingUnits: number): number {
-    return fullPallets + (remainingBoxes > 0 || remainingUnits > 0 ? 1 : 0);
   }
 }

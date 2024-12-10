@@ -39,4 +39,17 @@ export class PalletTableComponent implements OnChanges {
       console.log('Текущие данные detailedResults:', this.detailedResults);
     }
   }
+
+  // Делегированный обработчик кликов по таблице
+  handleTableClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+
+    // Проверяем, что клик был по ячейке таблицы
+    if (target && target.tagName.toLowerCase() === 'td') {
+      const value = target.innerText.trim(); // Получаем текст из ячейки
+      if (value) {
+        this.copyToClipboard(value); // Копируем значение в буфер обмена
+      }
+    }
+  }
 }
