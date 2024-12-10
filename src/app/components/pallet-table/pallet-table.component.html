@@ -1,0 +1,25 @@
+<table *ngIf="detailedResults.length > 0" class="pallet-table" (click)="handleTableClick($event)"> 
+  <thead>
+    <tr>
+      <th>Наименование</th>
+      <th>Общее количество</th>
+      <th>Остаток единиц</th>
+      <th>Полные паллеты</th>
+      <th>Паллет всего:</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let result of detailedResults">
+      <td>{{ result.itemName }}</td>
+      <td>{{ result.totalUnits }}</td>
+      <td>{{ result.remainingUnits }}</td>
+      <td>{{ result.fullPallets }}</td>
+      <td>{{ result.palletsForItem }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Сообщение, если данных нет -->
+<div *ngIf="detailedResults.length === 0">
+  Нет данных для отображения.
+</div>

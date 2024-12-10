@@ -7,4 +7,7 @@
 
   <!-- Компонент для импорта Excel -->
   <app-excel-import (totalDataUpdated)="onTotalDataUpdated($event)"></app-excel-import>
+
+  <!-- Компонент для отображения таблицы -->
+  <app-pallet-table [detailedResults]="palletCapacityComponent.detailedResults"></app-pallet-table>
 </div>
