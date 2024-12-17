@@ -7,7 +7,7 @@ import { ServerDataService } from '../dataService/data.service';
   providedIn: 'root',
 })
 export class PalletCalculationService {
-  constructor(private serverDataService: ServerDataService) {}
+  constructor(private serverDataService: ServerDataService) { }
 
   /**
    * Основной метод для расчета паллет из данных товаров.
@@ -37,7 +37,11 @@ export class PalletCalculationService {
    */
   private processItem(item: TotalData): DetailedResult | null {
     const palletFormat = this.extractPalletFormat(item.name);
-    if (!palletFormat || isNaN(item.quantity) || item.quantity <= 0) return null;
+
+    // Если паллетоформат не найден, считаем, что товар — это один паллет
+    if (!palletFormat || isNaN(item.quantity) || item.quantity <= 0) {
+      return this.createDetailedResult(item, item.quantity, 0, 0, 0, 1);  // Один паллет, без остатков
+    }
 
     const { boxes, pallets } = palletFormat;
     const totalUnits = item.quantity;
